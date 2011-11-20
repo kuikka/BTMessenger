@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+      package="fi.iki.kuikka.BTMessenger"
+      android:versionCode="1"
+      android:versionName="1.0">
+    <uses-sdk android:minSdkVersion="10" />
+    <uses-permission android:name="android.permission.BLUETOOTH"></uses-permission>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"></uses-permission>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"></uses-permission>
+    <uses-permission android:name="android.permission.SEND_SMS"></uses-permission>
+    <uses-permission android:name="android.permission.READ_SMS"></uses-permission>
+
+    <application android:icon="@drawable/icon" android:label="@string/app_name" android:debuggable="true">
+        <activity android:name=".BTMessengerActivity"
+                  android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <receiver android:name=".BTSmsReceiver">
+        	<intent-filter> 
+				<action android:name=
+					"android.provider.Telephony.SMS_RECEIVED" />
+				<action android:name=
+					"android.bluetooth.adapter.action.STATE_CHANGED" />
+			</intent-filter> 
+        </receiver>
+        <service android:enabled="true" android:name=".BTSmsService" android:exported="true">
+            <intent-filter>
+            	<action android:name=
+					"android.provider.Telephony.SMS_RECEIVED" /> 
+            </intent-filter>
+        </service>
+    </application>
+</manifest>
